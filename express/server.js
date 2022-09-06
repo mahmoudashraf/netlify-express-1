@@ -17,7 +17,7 @@ router.post('/api/balance', (req, res) => {
   const { amount } = req.body
   if (typeof amount !== "number" && amount > 0) return res.status(400).send({ error: "Invalid amount!" })
   userBalance += amount
-  res.status(200)
+  res.status(200).json({ balance: userBalance })
 });
 
 app.use(bodyParser.json());
