@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const serverless = require('serverless-http');
 const app = express();
+var cors = require('cors');
 const bodyParser = require('body-parser');
 let userBalance = 0
 
