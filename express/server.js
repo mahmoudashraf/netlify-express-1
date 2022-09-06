@@ -10,9 +10,7 @@ const router = express.Router();
 let userBalance = 0
 app.use(express.json())
 
- app.get("/", (req, res) => {
-  res.send("Hello Tap Payment Server!")
-})
+
 app.get("/api/balance", (req, res) => {
   res.status(200).send({ balance: userBalance })
 })
@@ -23,17 +21,18 @@ app.post("/api/balance", (req, res) => {
   res.status(200).send()
 })
 
-/*router.get('/', (req, res) => {
+router.get('/', (req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/html' });
   res.write('<h1>Hello from Express.js!</h1>');
   res.end();
 });
-router.get('/another', (req, res) => res.json({ route: req.originalUrl }));
-router.post('/', (req, res) => res.json({ postBody: req.body }));
-*/
-app.use(bodyParser.json());
-app.use('/.netlify/functions/server', router);  // path must route to lambda
-app.use('/', (req, res) => res.sendFile(path.join(__dirname, '../index.html')));
+router.get('/api/balance', (req, res) =>  res.status(200).send({ balance: userBalance }));
+router.post('/api/balance', (req, res) =>  {const { amount } = req.body
+if (typeof amount !== "number" && amount > 0) return res.status(400).send({ error: "Invalid amount!" })
+userBalance += amount
+res.status(200).send()
+});
+
 
 module.exports = app;
 module.exports.handler = serverless(app);
