@@ -1,3 +1,5 @@
 [build]
   command = "npm install && npm run build"
   functions = "functions"
+
+/api/*  https://unrivaled-belekoy-98081f.netlify.app/.netlify/functions/server/api/:splat  200
